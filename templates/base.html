@@ -37,7 +37,25 @@
     </div>{% endcomment %}
     <div id="navbar" class="collapse navbar-collapse navbar-right">
       <ul class="nav navbar-nav">
-        <li><a href="#">{% trans 'Contact' %}</a></li>
+        {% if user and not user.is_anonymous %}
+          <li>
+            <a href="#">
+              {{ user.get_full_name|default:user.username }}
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'auth:logout' %}?next={{ request.path }}">
+              {% trans 'Logout' %}
+            </a>
+          </li>
+        {% else %}
+          <li>
+            <a href="{% url 'social:begin' 'facebook' %}?next={{ request.path }}">
+              {% trans 'Sign in with Facebook' %}
+            </a>
+          </li>
+          <li><a href="#">{% trans 'Contact' %}</a></li>
+        {% endif %}
       </ul>
     </div>
     <!--/.nav-collapse -->

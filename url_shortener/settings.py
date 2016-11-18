@@ -38,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_extensions',
+    'social.apps.django_app.default',
     'shortener.apps.ShortenerConfig',
 )
 
@@ -50,6 +51,8 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+
+    'account.middleware.ErrorMiddleware',
 )
 
 ROOT_URLCONF = 'url_shortener.urls'
@@ -67,6 +70,10 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
+                # Setting of Template Context Processors for Social Auth
+                'social.apps.django_app.context_processors.backends',
+                'social.apps.django_app.context_processors.login_redirect',
             ],
         },
     },
@@ -106,6 +113,16 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 
 SLUG_LENGTH = 6
+
+AUTHENTICATION_BACKENDS = (
+    # For Spotify Authentication
+    'social.backends.facebook.FacebookOAuth2',
+    # Default Django Auth Backends
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+SOCIAL_AUTH_FACEBOOK_KEY = ""
+SOCIAL_AUTH_FACEBOOK_SECRET = ""
 
 try:
     from url_shortener.local_settings import *
