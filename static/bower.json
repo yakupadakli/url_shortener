@@ -1,0 +1,24 @@
+{
+  "name": "static",
+  "authors": [
+    "Yakup Adaklı <yakup.adakli@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "font-awesome": "^4.7.0",
+    "bootstrap": "^3.3.7",
+    "jquery": "^3.1.1",
+    "angular": "^1.5.8"
+  }
+}
