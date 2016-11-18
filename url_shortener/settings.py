@@ -124,6 +124,9 @@ AUTHENTICATION_BACKENDS = (
 SOCIAL_AUTH_FACEBOOK_KEY = ""
 SOCIAL_AUTH_FACEBOOK_SECRET = ""
 
+LOGIN_REDIRECT_URL = "/home/"
+LOGIN_URL = "/"
+
 try:
     from url_shortener.local_settings import *
 except ImportError:
