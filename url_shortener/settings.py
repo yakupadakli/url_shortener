@@ -25,7 +25,7 @@ SECRET_KEY = '7@&(3mf@n4klye9q2&@+3k6_+3t@c39^2dx96vg^kedfpg5+4z'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['url.yakupadakli.com']
 
 
 # Application definition
