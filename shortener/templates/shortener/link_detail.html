@@ -15,20 +15,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
-          <td>
-            <a href="{{ object.original_url }}" target="_blank">
-              {{ object.original_url }}
-            </a>
-          </td>
-          <td class="hidden-xs">{{ object.created_at.date }}</td>
-          <td>
-            <a href="{{ object.short_url }}" target="_blank">
-              {{ object.slug }}
-            </a>
-          </td>
-          <td>{{ object.click_count }}</td>
-        </tr>
+        {% include "shortener/_link_detail_single.html" %}
         </tbody>
       </table>
     </div>

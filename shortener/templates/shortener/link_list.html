@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block content %}
+  <div class="row">
+    <form method="post" action="{% url 'create-link' %}">
+      {% csrf_token %}
+        <div class="col-xs-10 col-sm-10 col-md-offset-1 col-md-6">
+          <div class="form-group">
+            <input type="url" class="form-control" id="original_url" name="original_url" placeholder="{% trans "Original URL" %}">
+          </div>
+        </div>
+        <div class="col-xs-10 col-sm-10 col-md-2">
+          <div class="form-group">
+            <select class="form-control" name="expired_in">
+              {% for item in expired_in %}
+                <option value="{{ item.0 }}">{{ item.1 }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2 text-left">
+          <button type="submit" class="btn btn-primary">{% trans "Shorten URL" %}</button>
+        </div>
+    </form>
+  </div>
+
+  <br />
+  <hr style="border-color: #000;" />
+  <br />
+
+  <div class="row">
+    <div class="link-table col-xs-12 col-md-offset-1 col-md-10">
+      <table class="table table-hover">
+        <thead>
+        <tr>
+          <th>{% trans "Original Url" %}</th>
+          <th class="hidden-xs">{% trans "Created At" %}</th>
+          <th>{% trans "Short Url" %}</th>
+          <th>{% trans "Click Count" %}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for object in object_list %}
+          {% include "shortener/_link_detail_single.html" %}
+        {% empty %}
+          <tr>
+            <td colspan="4">
+              {% trans "There is no link" %}
+            </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+{% endblock %}

@@ -30,11 +30,12 @@ body {
 }
 
 .alert {
-  position: absolute;
+  position: fixed;
   top: 20px;
   z-index: 100000;
   right: 100px;
 }
+
 .link-table {
   background-color: #fff;
   border-color: #ddd;
@@ -45,3 +46,18 @@ body {
 .link-table table tr {
   text-align: left;
 }
+
+.copy {
+  display: inline-block;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+tr .copy {
+  visibility: hidden;
+}
+
+tr:hover .copy {
+  visibility: visible;
+}
+

@@ -5,19 +5,23 @@ from django.utils.translation import ugettext as _
 from django.views.generic.base import TemplateView, RedirectView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView
+from django.views.generic.list import ListView
 
 from shortener.models import Link
 
 
-class IndexView(TemplateView):
-    template_name = "shortener/index.html"
+class LinkMixin(object):
 
     def get_context_data(self, **kwargs):
-        context = super(IndexView, self).get_context_data(**kwargs)
+        context = super(LinkMixin, self).get_context_data(**kwargs)
         if self.request.GET.get("errors"):
             messages.warning(self.request, _(u"There is an error. Please Check Your Url"))
         context["expired_in"] = Link.EXPIRED_IN
         return context
+
+
+class IndexView(LinkMixin, TemplateView):
+    template_name = "shortener/index.html"
 
 
 class CreateLinkView(CreateView):
@@ -31,12 +35,13 @@ class CreateLinkView(CreateView):
 
     def post(self, request, *args, **kwargs):
         form = self.get_form()
-        import ipdb
-        ipdb.set_trace()
         if not form.is_valid():
+            if self.request.user.is_authenticated():
+                return redirect("%s?errors=1" % reverse_lazy("home"))
             return redirect("%s?errors=1" % self.success_url)
         if self.request.user.is_authenticated():
             form.instance.user = self.request.user
+            form.save()
         return super(CreateLinkView, self).post(request, *args, **kwargs)
 
 
@@ -52,3 +57,12 @@ class LinkRedirectView(RedirectView, DetailView):
         link = self.get_object()
         Link.objects.filter(id=link.id).update(click_count=link.click_count + 1)
         return link.original_url
+
+
+class LinkListView(LinkMixin, ListView):
+    queryset = Link.objects.filter(is_active=True)
+    template_name = "shortener/link_list.html"
+
+    def get_queryset(self):
+        queryset = super(LinkListView, self).get_queryset()
+        return queryset.filter(user=self.request.user)

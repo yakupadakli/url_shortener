@@ -1,0 +1,20 @@
+{% load i18n %}
+
+<tr>
+  <td>
+    <a href="{{ object.original_url }}" target="_blank">
+      {{ object.original_url }}
+    </a>
+  </td>
+  <td class="hidden-xs">{{ object.created_at.date }}</td>
+  <td>
+    <a href="{{ object.short_url }}" target="_blank" id="{{ object.slug }}">
+      {{ object.slug }}
+    </a>
+
+    <div class="copy" title="{% trans 'Copy Short Url' %}" data-clipboard-target="#{{ object.slug }}">
+      <i class="fa fa-copy fa-lg"></i>
+    </div>
+  </td>
+  <td>{{ object.click_count }}</td>
+</tr>

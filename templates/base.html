@@ -81,12 +81,33 @@
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="{% static 'bower_components/jquery/dist/jquery.min.js' %}"></script>
 <script src="{% static 'bower_components/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'bower_components/clipboard/dist/clipboard.min.js' %}"></script>
 <script src="{% static 'bower_components/angular/angular.min.js' %}"></script>
 <script src="{% static 'js/app.js' %}"></script>
 
 <script>
-  $(".alert").fadeTo(2000, 500).slideUp(500, function(){
-      $("#success-alert").slideUp(500);
+  $(".alert").fadeTo(2000, 500).slideUp();
+
+  var clipboard = new Clipboard('.copy', {
+    text: function(trigger) {
+      return $($(trigger).attr("data-clipboard-target")).attr("href");
+    }
+  });
+  clipboard.on('success', function(e) {
+    var message = '<div class="alert alert-success  alert-dismissible" style="opacity: 1;">' +
+                    '<a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>' +
+                    'URL Copied' +
+                  '</div>';
+    $(".starter-template").append(message);
+    $(".alert").fadeTo(2000, 500).slideUp();
+  });
+  clipboard.on('error', function(e) {
+    var message = '<div class="alert alert-warning  alert-dismissible" style="opacity: 1;">' +
+                    '<a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>' +
+                    'URL Copy Error' +
+                  '</div>';
+    $(".starter-template").append(message);
+    $(".alert").fadeTo(2000, 500).slideUp();
   });
 </script>
 
