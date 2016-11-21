@@ -1,4 +1,4 @@
-var app = angular.module("spotifyApp", []);
+var app = angular.module("urlShortenApp", []);
 
 app.config(['$interpolateProvider', function ($interpolateProvider) {
   $interpolateProvider.startSymbol('{$');
@@ -13,4 +13,8 @@ app.config(function ($httpProvider) {
 });
 
 app.controller('DummyController', ['$scope', '$http', function ($scope, $http) {
+}]);
+
+app.controller('LinkController', ['$scope', '$http', function ($scope, $http) {
+
 }]);

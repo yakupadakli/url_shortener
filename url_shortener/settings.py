@@ -127,6 +127,8 @@ SOCIAL_AUTH_FACEBOOK_SECRET = ""
 LOGIN_REDIRECT_URL = "/home/"
 LOGIN_URL = "/"
 
+BASE_URL = "http://url.yakupadakli.com"
+
 try:
     from url_shortener.local_settings import *
 except ImportError:

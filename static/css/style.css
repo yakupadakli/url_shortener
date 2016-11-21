@@ -35,3 +35,13 @@ body {
   z-index: 100000;
   right: 100px;
 }
+.link-table {
+  background-color: #fff;
+  border-color: #ddd;
+  border-width: 1px;
+  border-radius: 4px 4px 0 0;
+  padding: 20px 10px 2px;
+}
+.link-table table tr {
+  text-align: left;
+}
