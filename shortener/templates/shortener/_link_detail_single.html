@@ -3,12 +3,12 @@
 <tr>
   <td>
     <a href="{{ object.original_url }}" target="_blank">
-      {{ object.original_url }}
+      {{ object.original_url|truncatechars:45 }}
     </a>
   </td>
-  <td class="hidden-xs">{{ object.created_at.date }}</td>
+  <td class="hidden-xs">{{ object.created_at|date:"d M Y H:i" }}</td>
   <td>
-    <a href="{{ object.short_url }}" target="_blank" id="{{ object.slug }}">
+    <a href="{{ object.short_url }}" {% if not object.is_expired %}target="_blank"{% endif %} id="{{ object.slug }}">
       {{ object.slug }}
     </a>
 
@@ -16,5 +16,6 @@
       <i class="fa fa-copy fa-lg"></i>
     </div>
   </td>
-  <td>{{ object.click_count }}</td>
+  <td class="hidden-xs">{{ object.get_expiry_date|date:"d M Y H:i" }}</td>
+  <td class="hidden-xs">{{ object.click_count }}</td>
 </tr>

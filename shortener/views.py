@@ -55,11 +55,15 @@ class LinkRedirectView(RedirectView, DetailView):
 
     def get_redirect_url(self, *args, **kwargs):
         link = self.get_object()
+        if link.is_expired:
+            messages.warning(self.request, _(u"Link is expired"))
+            return reverse_lazy("index")
         Link.objects.filter(id=link.id).update(click_count=link.click_count + 1)
         return link.original_url
 
 
 class LinkListView(LinkMixin, ListView):
+    ordering = "-created_at"
     queryset = Link.objects.filter(is_active=True)
     template_name = "shortener/link_list.html"
 

@@ -52,13 +52,13 @@ class Link(models.Model):
         return now.hour - self.created_at.hour
 
     def get_expiry_day(self):
-        if self.delete_period == self.ONE_DAY:
+        if self.expired_in == self.ONE_DAY:
             return 1
-        elif self.delete_period == self.ONE_WEEK:
+        elif self.expired_in == self.ONE_WEEK:
             return 7
-        elif self.delete_period == self.ONE_MONTH:
+        elif self.expired_in == self.ONE_MONTH:
             return 30
-        elif self.delete_period == self.ONE_YEAR:
+        elif self.expired_in == self.ONE_YEAR:
             return 365
         return 0
 
